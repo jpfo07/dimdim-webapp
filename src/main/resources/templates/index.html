@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Início')}"></head>
+<body>
+<header th:replace="~{fragments :: topo('inicio')}"></header>
+<main class="pagina">
+    <section class="hero">
+        <h1>Pague com dimdim.</h1>
+        <p>Cadastre clientes, abra contas e acompanhe o saldo do banco. Tudo rodando no Azure.</p>
+        <div class="acoes">
+            <a class="botao" th:href="@{/clientes/novo}">Cadastrar cliente</a>
+            <a class="botao secundario" th:href="@{/contas/novo}">Abrir conta</a>
+        </div>
+    </section>
+
+    <section class="resumo" aria-label="Resumo">
+        <div><strong th:text="${totalClientes}">0</strong><span>clientes</span></div>
+        <div><strong th:text="${totalContas}">0</strong><span>contas abertas</span></div>
+        <div><strong th:text="${'R$ ' + #numbers.formatDecimal(saldoTotal, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</strong><span>em saldo total</span></div>
+    </section>
+</main>
+<footer th:replace="~{fragments :: rodape}"></footer>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Clientes')}"></head>
+<body>
+<header th:replace="~{fragments :: topo('clientes')}"></header>
+<main class="pagina">
+    <div class="cabecalho">
+        <h1>Clientes</h1>
+        <a class="botao" th:href="@{/clientes/novo}">Cadastrar cliente</a>
+    </div>
+    <div th:replace="~{fragments :: mensagens}"></div>
+
+    <p class="vazio" th:if="${#lists.isEmpty(clientes)}">Nenhum cliente ainda. Cadastre o primeiro para abrir contas.</p>
+
+    <div class="tabela" th:unless="${#lists.isEmpty(clientes)}">
+        <table>
+            <thead>
+            <tr><th>ID</th><th>Nome</th><th>CPF</th><th>E-mail</th><th>Telefone</th><th>Cadastro</th><th></th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${clientes}">
+                <td th:text="${c.id}"></td>
+                <td th:text="${c.nome}"></td>
+                <td th:text="${c.cpf}"></td>
+                <td th:text="${c.email}"></td>
+                <td th:text="${c.telefone}"></td>
+                <td th:text="${#temporals.format(c.dataCadastro, 'dd/MM/yyyy HH:mm')}"></td>
+                <td class="linha-acoes">
+                    <a th:href="@{/clientes/{id}/editar(id=${c.id})}">Editar</a>
+                    <form th:action="@{/clientes/{id}/excluir(id=${c.id})}" method="post"
+                          onsubmit="return confirm('Excluir este cliente?')">
+                        <button type="submit" class="link-perigo">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer th:replace="~{fragments :: rodape}"></footer>
+</body>
+</html>

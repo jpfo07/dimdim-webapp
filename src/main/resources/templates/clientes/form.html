@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${cliente.id == null ? 'Novo cliente' : 'Editar cliente'})}"></head>
+<body>
+<header th:replace="~{fragments :: topo('clientes')}"></header>
+<main class="pagina estreita">
+    <h1 th:text="${cliente.id == null} ? 'Cadastrar cliente' : 'Editar cliente'">Cadastrar cliente</h1>
+    <div th:replace="~{fragments :: mensagens}"></div>
+
+    <form class="formulario" th:action="@{/clientes/salvar}" th:object="${cliente}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <label>Nome
+            <input type="text" th:field="*{nome}" maxlength="100" required>
+            <small class="erro-campo" th:errors="*{nome}"></small>
+        </label>
+        <label>CPF
+            <input type="text" th:field="*{cpf}" maxlength="14" placeholder="000.000.000-00" required>
+            <small class="erro-campo" th:errors="*{cpf}"></small>
+        </label>
+        <label>E-mail
+            <input type="email" th:field="*{email}" maxlength="120" required>
+            <small class="erro-campo" th:errors="*{email}"></small>
+        </label>
+        <label>Telefone
+            <input type="text" th:field="*{telefone}" maxlength="20" placeholder="(11) 90000-0000">
+            <small class="erro-campo" th:errors="*{telefone}"></small>
+        </label>
+
+        <div class="acoes">
+            <button type="submit" class="botao" th:text="${cliente.id == null} ? 'Cadastrar cliente' : 'Salvar alterações'">Salvar</button>
+            <a class="botao secundario" th:href="@{/clientes}">Cancelar</a>
+        </div>
+    </form>
+</main>
+<footer th:replace="~{fragments :: rodape}"></footer>
+</body>
+</html>

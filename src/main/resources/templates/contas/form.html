@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${conta.id == null ? 'Abrir conta' : 'Editar conta'})}"></head>
+<body>
+<header th:replace="~{fragments :: topo('contas')}"></header>
+<main class="pagina estreita">
+    <h1 th:text="${conta.id == null} ? 'Abrir conta' : 'Editar conta'">Abrir conta</h1>
+    <div th:replace="~{fragments :: mensagens}"></div>
+
+    <form class="formulario" th:action="@{/contas/salvar}" th:object="${conta}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <label>Titular
+            <select name="clienteId" required>
+                <option value="">Escolha um cliente</option>
+                <option th:each="cli : ${listaClientes}"
+                        th:value="${cli.id}"
+                        th:text="${cli.nome + ' (' + cli.cpf + ')'}"
+                        th:selected="${conta.cliente != null and conta.cliente.id == cli.id}"></option>
+            </select>
+            <small class="erro-campo" th:if="${erroCliente}" th:text="${erroCliente}"></small>
+        </label>
+        <div class="dupla">
+            <label>Agência
+                <input type="text" th:field="*{agencia}" maxlength="10" placeholder="0001" required>
+                <small class="erro-campo" th:errors="*{agencia}"></small>
+            </label>
+            <label>Número
+                <input type="text" th:field="*{numero}" maxlength="20" placeholder="12345-6" required>
+                <small class="erro-campo" th:errors="*{numero}"></small>
+            </label>
+        </div>
+        <label>Tipo
+            <select th:field="*{tipo}" required>
+                <option value="">Escolha o tipo</option>
+                <option th:each="t : ${tipos}" th:value="${t}" th:text="${t.descricao}"></option>
+            </select>
+            <small class="erro-campo" th:errors="*{tipo}"></small>
+        </label>
+        <label>Saldo (R$)
+            <input type="number" th:field="*{saldo}" step="0.01" min="0" required>
+            <small class="erro-campo" th:errors="*{saldo}"></small>
+        </label>
+
+        <div class="acoes">
+            <button type="submit" class="botao" th:text="${conta.id == null} ? 'Abrir conta' : 'Salvar alterações'">Salvar</button>
+            <a class="botao secundario" th:href="@{/contas}">Cancelar</a>
+        </div>
+    </form>
+</main>
+<footer th:replace="~{fragments :: rodape}"></footer>
+</body>
+</html>
