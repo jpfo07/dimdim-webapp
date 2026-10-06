@@ -6,9 +6,9 @@ Checkpoint 2 (2º semestre) da disciplina **DevOps Tools & Cloud Computing** · 
 
 | Nome | RM |
 |------|----|
-| Nome Integrante 1 | RM000000 |
-| Nome Integrante 2 | RM000000 |
-| Nome Integrante 3 | RM000000 |
+| Joao Paulo Francisco de Oliveira | RM557410 |
+| Marcelo Antônio Scoleso Junior| RM000000 |
+
 
 **Vídeo com as evidências:** https://youtu.be/SEU_LINK_AQUI
 
